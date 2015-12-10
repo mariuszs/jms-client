@@ -1,19 +1,19 @@
 package com.adam;
 
-import java.io.File;
-import java.io.FileReader;
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.commons.io.IOUtils;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
+
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
-
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.commons.io.IOUtils;
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.args4j.CmdLineParser;
-import org.kohsuke.args4j.Option;
+import java.io.File;
+import java.io.FileReader;
 
 public class Producer {
 
