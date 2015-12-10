@@ -1,5 +1,4 @@
 group 'com.adam'
-version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -15,19 +14,11 @@ buildscript {
     }
 }
 
-idea {
-    module {
-        downloadJavadoc = true
-        downloadSources = true
-    }
-}
-
 jar {
     manifest {
         attributes 'Main-Class': 'com.adam.Producer'
     }
 }
-
 
 repositories {
     mavenCentral()
@@ -37,17 +28,7 @@ repositories {
 dependencies {
     compile 'args4j:args4j:2.32'
     compile 'commons-io:commons-io:2.4'
+    compile 'ch.qos.logback:logback-classic:1.1.3'
     compile 'org.apache.activemq:activemq-all:5.12.1'
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-}
-
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'JMS Client',
-                'Implementation-Version': version,
-                'Main-Class': 'com.adam.Producer'
-    }
-    baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }

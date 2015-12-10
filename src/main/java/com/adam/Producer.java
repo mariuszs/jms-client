@@ -5,6 +5,8 @@ import org.apache.commons.io.IOUtils;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
@@ -14,8 +16,11 @@ import javax.jms.TextMessage;
 import javax.jms.Topic;
 import java.io.File;
 import java.io.FileReader;
+import java.lang.invoke.MethodHandles;
 
 public class Producer {
+
+    private final static Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public static void main(String[] args) {
         try {
@@ -38,14 +43,13 @@ public class Producer {
             message.setStringProperty("Channel", parameters.channel);
             message.setJMSExpiration(parameters.expiration);
 
-            System.out.println("Sent message: " + message.toString());
+            LOG.info("Sent message: {}", message);
             producer.send(message);
 
             session.close();
             connection.close();
         } catch (Exception e) {
-            System.out.println("Caught: " + e);
-            e.printStackTrace();
+            LOG.error("Producing interrupted", e);
         }
     }
 
